@@ -7,7 +7,11 @@
     update_cache: true
     cache_valid_time: 3600
   with_items: innotop_dependencies
-  tags: [configuration, innotop, innotop-install, innotop-install-dependencies ]
+  tags:
+    - configuration
+    - innotop
+    - innotop-install
+    - innotop-install-dependencies
 
 - name: create (checkout) directory
   file:
@@ -16,32 +20,47 @@
     owner: root
     group: root
     mode: 0755
-  tags: [configuration, innotop, innotop-checkout ]
+  tags:
+    - configuration
+    - innotop
+    - innotop-checkout
 
 - name: checkout repository
   git:
     repo: https://github.com/innotop/innotop.git
-    dest: "/var/lib/ansible/innotop/checkouts/innotop"
+    dest: "{{ innotop_checkout_path }}"
   register: result
-  tags: [configuration, innotop, innotop-checkout]
+  tags:
+    - configuration
+    - innotop
+    - innotop-checkout
 
 - name: make
-  shell: "perl Makefile.PL"
+  command: "perl Makefile.PL"
   args:
-    chdir: "/var/lib/ansible/innotop/checkouts/innotop"
+    chdir: "{{ innotop_checkout_path }}"
   when: result | changed
-  tags: [configuration, innotop, innotop-make]
+  tags:
+    - configuration
+    - innotop
+    - innotop-make
 
 - name: install
-  shell: "make install"
+  command: "make install"
   args:
-    chdir: "/var/lib/ansible/innotop/checkouts/innotop"
+    chdir: "{{ innotop_checkout_path }}"
   when: result | changed
-  tags: [configuration, innotop, innotop-install]
+  tags:
+    - configuration
+    - innotop
+    - innotop-install
 
 - name: cleanup build
   shell: "git reset --hard && git clean -d -x -f"
   args:
-    chdir: "/var/lib/ansible/innotop/checkouts/innotop"
+    chdir: "{{ innotop_checkout_path }}"
   when: result | changed
-  tags: [configuration, innotop, innotop-cleanup-build]
+  tags:
+    - configuration
+    - innotop
+    - innotop-cleanup-build
