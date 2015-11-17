@@ -1,0 +1,6 @@
+# vars file for innotop
+---
+innotop_dependencies:
+  - libdbd-mysql-perl
+  - libterm-readkey-perl
+  - git-core
