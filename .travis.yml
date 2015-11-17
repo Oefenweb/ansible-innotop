@@ -73,3 +73,6 @@ script:
 
 notifications:
   email: false
+  hipchat:
+    rooms:
+      secure: MO/hfJww1nW+i18xVDNkKn/dF74W+XCt8ciOMYfuh8f7E2nH+c2eLLnAU5uQFYNnEK09x/pTPoZBTxaG/jaNq42FbXCme/tQWL5RljAkIb7FBGLmHV9gWh1wyHGysLK/Taydopc4IQLwkuG/mJQ8ogIRy+5ZAgDEplZAbGyZcktoXJ3K+WzSCYMxirJpoo1Tc/emicLGMXtVcukizYTGK+RqRMNiaqKFIgRe29RowyRgwcMNjxMzpF542sPtyfizhSvn9Ilq8BwVDJFg9zr8Ww/aQxMsaBvCYpfVv1FwgCdDOBZYo+4ZagQdG7JrMkwPelPXsmilcmb9yE1VPFKPhdrDqgm/E5IbjXjrY0dP+asppc3mT+l74JCuyRzOtGGWQGOb4/1Ls3yYKQySkY2MFrV9hTebCncjDQat/GFYhLgAdKukAyPfglhK/lmxS/8CJksFJct7parCUYPXl+Nhvzcb/pNv8YlM71r9YOjs42T3hAIVld40wL+6PR7dXIGRGQCCJM1DmkL2sgx7CSyI8qeDELfutNDBSONT/+xc4qiOOUtMThfmwqQ4j2SwxJeXCyuLlQE2dL9GOzBmeB40u/Gk+CaT6cAx6D5/TNokdLVBhb6aybjnrkGWgN83HO55J4ZenFGAIUDAMj+9e8rP/YmveW7It/jicWLufYjjI2g=
