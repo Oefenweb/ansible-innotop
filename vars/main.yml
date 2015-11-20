@@ -1,0 +1,8 @@
+# vars file for innotop
+---
+innotop_dependencies:
+  - git-core
+  - libdbd-mysql-perl
+  - libterm-readkey-perl
+
+innotop_checkout_path: /var/lib/ansible/innotop/checkouts/innotop
