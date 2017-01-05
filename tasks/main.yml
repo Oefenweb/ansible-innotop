@@ -3,10 +3,10 @@
 - name: install dependencies
   apt:
     name: "{{ item }}"
-    state: latest
+    state: "{{ apt_install_state | default('latest') }}"
     update_cache: true
     cache_valid_time: "{{ apt_update_cache_valid_time | default(3600) }}"
-  with_items: innotop_dependencies
+  with_items: "{{ innotop_dependencies }}"
   tags:
     - configuration
     - innotop
@@ -37,7 +37,7 @@
     - innotop-checkout
 
 - name: make
-  command: "perl Makefile.PL"
+  command: perl Makefile.PL
   args:
     chdir: "{{ innotop_checkout_path }}"
   when: result | changed
@@ -47,7 +47,7 @@
     - innotop-make
 
 - name: install
-  command: "make install"
+  command: make install
   args:
     chdir: "{{ innotop_checkout_path }}"
   when: result | changed
@@ -57,7 +57,7 @@
     - innotop-install
 
 - name: cleanup build
-  shell: "git reset --hard && git clean -d -x -f"
+  shell: git reset --hard && git clean -d -x -f
   args:
     chdir: "{{ innotop_checkout_path }}"
   when: result | changed
