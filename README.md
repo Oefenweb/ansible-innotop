@@ -6,7 +6,7 @@ Set up the latest version of [innotop](https://github.com/innotop/innotop) in De
 
 #### Requirements
 
-* `git-core` (will be installed)
+* `git` (will be installed)
 
 #### Variables
 
