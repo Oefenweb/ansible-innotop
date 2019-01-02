@@ -1,6 +1,7 @@
 # meta file for innotop
 ---
 galaxy_info:
+  role_name: innotop
   author: Mischa ter Smitten
   company: Oefenweb.nl B.V.
   description: Set up the latest version of innotop in Debian-like systems
@@ -12,13 +13,17 @@ galaxy_info:
         - precise
         - trusty
         - xenial
+        - bionic
     - name: Debian
       versions:
         - wheezy
         - jessie
+        - stretch
   galaxy_tags:
     - system
     - monitoring
     - database
-    - database:sql
+    - sql
+    - mysql
+    - innodb
 dependencies: []
