@@ -29,42 +29,40 @@
     repo: https://github.com/innotop/innotop.git
     dest: "{{ innotop_checkout_path }}"
     force: true
-  register: result
+  register: _result
   tags:
     - configuration
     - innotop
     - innotop-checkout
 
-- name: make
-  command: >
-    perl Makefile.PL
-  args:
-    chdir: "{{ innotop_checkout_path }}"
-  when: result is changed
-  tags:
-    - configuration
-    - innotop
-    - innotop-make
+- block:
 
-- name: install
-  command: >
-    make install
-  args:
-    chdir: "{{ innotop_checkout_path }}"
-  when: result is changed
-  tags:
-    - configuration
-    - innotop
-    - innotop-install
+  - name: make
+    command: >
+      perl Makefile.PL
+    args:
+      chdir: "{{ innotop_checkout_path }}"
+    tags:
+      - innotop-make
 
-- name: cleanup build
-  shell: >
-    git reset --hard && git clean -d -x -f
-  args:
-    chdir: "{{ innotop_checkout_path }}"
-    warn: false
-  when: result is changed
+  - name: install
+    command: >
+      make install
+    args:
+      chdir: "{{ innotop_checkout_path }}"
+    tags:
+      - innotop-install
+
+  - name: cleanup build
+    shell: >
+      git reset --hard && git clean -d -x -f
+    args:
+      chdir: "{{ innotop_checkout_path }}"
+      warn: false
+    tags:
+      - innotop-cleanup-build
+
+  when: _result is changed
   tags:
     - configuration
     - innotop
-    - innotop-cleanup-build

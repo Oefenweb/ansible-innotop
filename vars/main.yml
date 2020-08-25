@@ -4,5 +4,6 @@ innotop_dependencies:
   - git
   - libdbd-mysql-perl
   - libterm-readkey-perl
+  - make
 
 innotop_checkout_path: /var/lib/ansible/innotop/checkouts/innotop
