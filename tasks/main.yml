@@ -37,30 +37,30 @@
 
 - block:
 
-  - name: make
-    command: >
-      perl Makefile.PL
-    args:
-      chdir: "{{ innotop_checkout_path }}"
-    tags:
-      - innotop-make
+    - name: make
+      command: >
+        perl Makefile.PL
+      args:
+        chdir: "{{ innotop_checkout_path }}"
+      tags:
+        - innotop-make
 
-  - name: install
-    command: >
-      make install
-    args:
-      chdir: "{{ innotop_checkout_path }}"
-    tags:
-      - innotop-install
+    - name: install
+      command: >
+        make install
+      args:
+        chdir: "{{ innotop_checkout_path }}"
+      tags:
+        - innotop-install
 
-  - name: cleanup build
-    shell: >
-      git reset --hard && git clean -d -x -f
-    args:
-      chdir: "{{ innotop_checkout_path }}"
-      warn: false
-    tags:
-      - innotop-cleanup-build
+    - name: cleanup build
+      shell: >
+        git reset --hard && git clean -d -x -f
+      args:
+        chdir: "{{ innotop_checkout_path }}"
+        warn: false
+      tags:
+        - innotop-cleanup-build
 
   when: _result is changed
   tags:
