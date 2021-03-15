@@ -1,4 +1,4 @@
-# vars file for innotop
+# vars file
 ---
 innotop_dependencies:
   - git

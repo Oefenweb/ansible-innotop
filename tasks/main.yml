@@ -1,4 +1,4 @@
-# tasks file for innotop
+# tasks file
 ---
 - name: install dependencies
   apt:
