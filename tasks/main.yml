@@ -1,7 +1,7 @@
 # tasks file
 ---
 - name: install dependencies
-  apt:
+  ansible.builtin.apt:
     name: "{{ innotop_dependencies }}"
     state: "{{ apt_install_state | default('latest') }}"
     update_cache: true
@@ -13,7 +13,7 @@
     - innotop-install-dependencies
 
 - name: create (checkout) directory
-  file:
+  ansible.builtin.file:
     path: /var/lib/ansible/innotop/checkouts
     state: directory
     owner: root
@@ -25,7 +25,7 @@
     - innotop-checkout
 
 - name: checkout repository
-  git:
+  ansible.builtin.git:
     repo: https://github.com/innotop/innotop.git
     dest: "{{ innotop_checkout_path }}"
     force: true
@@ -35,34 +35,37 @@
     - innotop
     - innotop-checkout
 
-- block:
-
-    - name: make
-      command: >
-        perl Makefile.PL
-      args:
-        chdir: "{{ innotop_checkout_path }}"
-      tags:
-        - innotop-make
-
-    - name: install
-      command: >
-        make install
-      args:
-        chdir: "{{ innotop_checkout_path }}"
-      tags:
-        - innotop-install
-
-    - name: cleanup build
-      shell: >
-        git reset --hard && git clean -d -x -f
-      args:
-        chdir: "{{ innotop_checkout_path }}"
-        warn: false
-      tags:
-        - innotop-cleanup-build
-
+- name: install  # noqa no-handler
   when: _result is changed
   tags:
     - configuration
     - innotop
+  block:
+
+    - name: make
+      ansible.builtin.command: >
+        perl Makefile.PL
+      args:
+        chdir: "{{ innotop_checkout_path }}"
+      changed_when: true
+      tags:
+        - innotop-make
+
+    - name: install
+      ansible.builtin.command: >
+        make install
+      args:
+        chdir: "{{ innotop_checkout_path }}"
+      changed_when: true
+      tags:
+        - innotop-install
+
+    - name: cleanup build
+      ansible.builtin.shell: >
+        git reset --hard && git clean -d -x -f
+      args:
+        chdir: "{{ innotop_checkout_path }}"
+        warn: false
+      changed_when: true
+      tags:
+        - innotop-cleanup-build
