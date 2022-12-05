@@ -60,12 +60,11 @@
       tags:
         - innotop-install
 
-    - name: cleanup build
+    - name: cleanup build  # noqa command-instead-of-module
       ansible.builtin.shell: >
         git reset --hard && git clean -d -x -f
       args:
         chdir: "{{ innotop_checkout_path }}"
-        warn: false
       changed_when: true
       tags:
         - innotop-cleanup-build
